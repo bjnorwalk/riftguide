@@ -20,7 +20,9 @@ npm run dev
 
 Open [localhost:5174](http://127.0.0.1:5174). The app combines local profiles and
 guides with Riot Data Dragon. A network connection is needed for uncached static
-data. Selections can be shared through the URL, and saved plans use localStorage.
+data. Selections can be shared through the URL, including a cleared enemy team,
+and saved plans use localStorage. Links without an `enemies` parameter keep the
+default team; `enemies=` represents an explicitly empty team.
 
 ## Optional account features
 
@@ -44,7 +46,8 @@ npm run check
 This runs the tests and production build, and also runs in GitHub Actions.
 
 The build runs TypeScript before bundling the frontend. Tests cover champion data,
-recommendation behavior, and Riot ID parsing. There is no separate lint script.
+recommendation behavior, Riot ID parsing, and shared build URL round trips.
+There is no separate lint script.
 
 ## Implementation
 

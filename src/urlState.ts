@@ -30,7 +30,7 @@ export function readStateFromUrl(): UrlBuildState {
     role: isRole(roleParam) ? roleParam : 'Mid',
     gameState: isGameState(gameStateParam) ? gameStateParam : 'Even',
     gameMode: isGameMode(gameModeParam) ? gameModeParam : 'Ranked',
-    enemyIds: enemyParam ? enemyParam.split(',').filter(Boolean).slice(0, 5) : DEFAULT_ENEMIES
+    enemyIds: enemyParam !== null ? enemyParam.split(',').filter(Boolean).slice(0, 5) : DEFAULT_ENEMIES
   };
 }
 
@@ -40,7 +40,8 @@ export function writeStateToUrl(championId: string, role: Role, gameState: GameS
   params.set('role', role);
   params.set('state', gameState);
   params.set('mode', gameMode);
-  if (enemyIds.length) params.set('enemies', enemyIds.join(','));
+  // An empty parameter preserves a cleared team; an absent one uses defaults.
+  params.set('enemies', enemyIds.join(','));
 
   const nextUrl = `${window.location.pathname}?${params.toString()}`;
   if (`${window.location.pathname}${window.location.search}` !== nextUrl) {
